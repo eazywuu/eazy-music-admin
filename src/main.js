@@ -3,6 +3,7 @@ import './style.css'
 import { Quasar } from 'quasar'
 import router from './router'
 import store from './store'
+import './permissions'
 
 // Import icon libraries
 import '@quasar/extras/material-icons/material-icons.css'
