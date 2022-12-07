@@ -1,35 +1,24 @@
 <script setup>
-import { useQuasar } from 'quasar'
 import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import store from '../../store'
 
-const $q = useQuasar()
+const route = useRoute()
+const router = useRouter()
 
-const name = ref(null)
-const age = ref(null)
+const username = ref(null)
+const password = ref(null)
 const accept = ref(false)
 
-const onSubmit = () => {
-  if (accept.value !== true) {
-    $q.notify({
-      color: 'red-5',
-      textColor: 'white',
-      icon: 'warning',
-      message: '请同意许可和条款！',
-    })
-  }
-  else {
-    $q.notify({
-      color: 'green-4',
-      textColor: 'white',
-      icon: 'cloud_done',
-      message: '登陆成功！',
-    })
-  }
+const onSubmit = (username, password) => {
+  store.dispatch('user/login', { username, password }).then((res) => {
+    router.push({ path: route.query.redirect || '/' })
+  })
 }
 
 const onReset = () => {
-  name.value = null
-  age.value = null
+  username.value = null
+  password.value = null
   accept.value = false
 }
 </script>
@@ -43,11 +32,11 @@ const onReset = () => {
         </div>
         <q-form
           class="q-gutter-md form"
-          @submit="onSubmit"
+          @submit="onSubmit(username, password)"
           @reset="onReset"
         >
           <q-input
-            v-model="name"
+            v-model="username"
             filled
             label="用户名："
             hint="电话或邮箱"
@@ -56,18 +45,14 @@ const onReset = () => {
           />
 
           <q-input
-            v-model="age"
+            v-model="password"
             filled
             type="password"
             label="密码："
             lazy-rules
-            :rules="[
-              val => val !== null && val !== '' || '请输入密码',
-              val => val > 0 && val < 100 || '请输入正确的密码',
-            ]"
           />
 
-          <q-toggle v-model="accept" label="我接受许可和条款" />
+          <q-toggle v-model="accept" label="记住我" />
 
           <div>
             <q-btn class="full-width" label="登录" type="submit" color="primary" />

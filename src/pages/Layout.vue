@@ -1,9 +1,8 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { useStore } from 'vuex'
+import store from '../store'
 
 const leftDrawerOpen = ref(false)
-const store = useStore
 
 const nicknameFirstWord = computed(() => store.getters['user/nicknameFirstWord'])
 const toggleLeftDrawer = () => leftDrawerOpen.value = !leftDrawerOpen.value
@@ -19,7 +18,7 @@ const toggleLeftDrawer = () => leftDrawerOpen.value = !leftDrawerOpen.value
           Title
         </q-toolbar-title>
 
-        <q-avatar color="primary" text-color="white">
+        <q-avatar color="teal" text-color="white">
           {{ nicknameFirstWord }}
         </q-avatar>
       </q-toolbar>
