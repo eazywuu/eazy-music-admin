@@ -1,7 +1,25 @@
-# Vue 3 + Vite
+# eazy music admin service
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 2022-12-06 Step 3
+> **登录执行流程**：permission -> Login.@click -> store/user -> api/user -> api/request
 
-## Recommended IDE Setup
+[`api`]
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+1. 引入vuex做user状态管理 store/
+2. 添加用户api接口 api/user.js
+3. axios添加请求拦截器，发送请求时判断是否存在token，存在则放入header中一起发送 api/request.js
+
+[`view`]
+
+1. router beforeEach时，通过判断cookie中的token信息，进行初始化前的路由 permission.js
+2. 添加登录逻辑 Login.vue
+
+[`other`]
+
+1. 引入js-cookie实现cookie控制，封装成工具类 utils/auth.js
+
+## 2022-12-11 Step 4
+1. 构建侧边栏和用户管理界面
+
+
+

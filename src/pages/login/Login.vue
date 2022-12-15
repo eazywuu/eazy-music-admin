@@ -10,11 +10,11 @@ const username = ref(null)
 const password = ref(null)
 const accept = ref(false)
 
-const onSubmit = (username, password) => {
-  store.dispatch('user/login', { username, password }).then((res) => {
+const onSubmit = (username, password) =>
+  store.dispatch('user/login', { username, password }).then(() => {
+    store.dispatch('user/fetchCurrentUser')
     router.push({ path: route.query.redirect || '/' })
   })
-}
 
 const onReset = () => {
   username.value = null
