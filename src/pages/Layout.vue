@@ -1,9 +1,11 @@
 <script setup>
 import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import store from '../store'
+import { menuRoutes } from '../router/index'
 
+const route = useRoute()
 const leftDrawerOpen = ref(false)
-
 const nicknameFirstWord = computed(() => store.getters['user/nicknameFirstWord'])
 const toggleLeftDrawer = () => leftDrawerOpen.value = !leftDrawerOpen.value
 </script>
@@ -25,12 +27,36 @@ const toggleLeftDrawer = () => leftDrawerOpen.value = !leftDrawerOpen.value
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" show-if-above side="left" bordered>
-      <!-- drawer content -->
+      <div class="q-pa-md">
+        <q-list padding class="rounded-borders text-primary">
+          <q-item
+            v-for="(menu, i) in menuRoutes"
+            :key="i"
+            v-ripple
+            active-class="menu-active"
+            :active="menu.name === route.name"
+            :to="menu.path"
+            clickable
+          >
+            <q-item-section avatar>
+              <q-icon :name="menu.meta.icon" />
+            </q-item-section>
+
+            <q-item-section>{{ menu.meta.title }}</q-item-section>
+          </q-item>
+        </q-list>
+      </div>
     </q-drawer>
 
-    <q-page-container><router-view /></q-page-container>
+    <q-page-container>
+      <router-view />
+    </q-page-container>
   </q-layout>
 </template>
 
-<style scoped>
+<style lang="less" scoped>
+.menu-active{
+  color: white;
+  background: #2b88ec;
+}
 </style>
