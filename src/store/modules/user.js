@@ -1,10 +1,10 @@
-import { getCurrentUser, getToken, removeToken, setCurrentUser, setToken } from '../../utils/auth'
-import { me, search } from '../../api/user'
+import { removeCurrentUser, removeToken, setCurrentUser, setToken } from '../../utils/auth'
+import { me } from '../../api/user'
 import { createToken } from '../../api/token'
 
 const state = () => ({
-  token: getToken(),
-  currentUser: getCurrentUser(),
+  token: null,
+  currentUser: null,
 })
 
 const getters = {
@@ -28,17 +28,17 @@ const actions = {
         })
     })
   },
-  search: ({ page }) => {
-    return new Promise((resolve, reject) => {
-      search(page)
-        .then(() => {
-          resolve()
-        })
-        .catch((error) => {
-          reject(error)
-        })
-    })
-  },
+  // search: ({ page }) => {
+  //   return new Promise((resolve, reject) => {
+  //     search({ page })
+  //       .then((data) => {
+  //         resolve(data)
+  //       })
+  //       .catch((error) => {
+  //         reject(error)
+  //       })
+  //   })
+  // },
   fetchCurrentUser: ({ commit }) => {
     return new Promise((resolve, reject) => {
       me()
@@ -57,6 +57,7 @@ const actions = {
     commit('SET_TOKEN', '')
     commit('SET_CURRENT_USER', null)
     removeToken()
+    removeCurrentUser()
   },
 }
 

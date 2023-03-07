@@ -9,7 +9,9 @@ const req = axios.create({
   baseURL,
 })
 
-// request interceptor
+const { get, post, put } = req
+
+// 全局 请求 拦截器
 req.interceptors.request.use(
   (request) => {
     // do something before request is sent
@@ -22,19 +24,35 @@ req.interceptors.request.use(
   },
 )
 
+// 全局 响应 拦截器
 req.interceptors.response.use(
   response => response.data,
   (error) => {
-    store.dispatch('user/logout')
-    Notify.create({
-      type: 'negative',
-      message: error.message,
-      position: 'top',
-    })
+    errorResponseHandler(error.response)
     return Promise.reject(error)
   },
 )
 
-const { get, post, put } = req
+function errorResponseHandler(res) {
+  if (res.status === '401' && res.status === '403')
+    store.dispatch('user/logout').then(() => window.location.reload())
+
+  if (Array.isArray(res.data)) {
+    res.data.forEach((item) => {
+      Notify.create({
+        type: 'negative',
+        message: item.message,
+        position: 'top',
+      })
+    })
+  }
+  else {
+    Notify.create({
+      type: 'negative',
+      message: res.data.message,
+      position: 'top',
+    })
+  }
+}
 
 export { get, post, put }

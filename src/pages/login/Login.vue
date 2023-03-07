@@ -1,10 +1,11 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import store from '../../store'
+import { useStore } from 'vuex'
 
 const route = useRoute()
 const router = useRouter()
+const store = useStore()
 
 const username = ref(null)
 const password = ref(null)
@@ -13,7 +14,7 @@ const accept = ref(false)
 const onSubmit = (username, password) =>
   store.dispatch('user/login', { username, password }).then(() => {
     store.dispatch('user/fetchCurrentUser')
-    router.push({ path: route.query.redirect || '/' })
+      .then(() => router.push({ path: route.query.redirect || '/' }))
   })
 
 const onReset = () => {
