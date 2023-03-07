@@ -1,9 +1,11 @@
-import { get } from './request'
+import { get, post } from './request'
 
 // const login = (username, password) => post('/login', { username, password })
 
-const search = paging => get('/users', { params: paging })
+const search = pageNumber => get('/users', { params: pageNumber })
 
-const me = username => get('/users/me', { params: username })
+const me = () => get('/users/me')
 
-export { search, me }
+const create = user => post('/users', user)
+
+export { search, me, create }

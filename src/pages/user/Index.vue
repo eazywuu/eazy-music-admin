@@ -1,44 +1,44 @@
 <script setup>
-import { computed, ref } from 'vue'
-import store from '../../store'
+import { ref } from 'vue'
+import { useUserSearch } from '../../composables/useUserSearch.js'
+import { useToggleDialog } from '../../composables/useToggleDialog.js'
+import CreateDialog from './CreateDialog.vue'
+
 const columns = [
   {
-    name: 'id',
+    field: 'id',
     label: 'ID',
     style: 'width: 100px',
   },
   {
-    name: 'username',
+    field: 'username',
     label: '用户名',
   },
   {
-    name: 'nickname',
+    field: 'nickname',
     label: '昵称',
   },
-  {
-    name: 'gender',
-    label: '性别',
-  },
 ]
-const rows = []
-const page = ref(1)
-const fetchData = () => store.dispatch('user/search', { page })
-fetchData()
-const pagination = ref({
-  page: 2,
-  rowsPerPage: 3,
-})
-const pagesNumber = computed(() => Math.ceil(rows.length, pagination.value.rowsPerPage))
+const isShowDialog = ref(false)
+
+const { showDialog, hideDialog } = useToggleDialog(isShowDialog)
+const {
+  rows,
+  pagination,
+  fetchData,
+  pagesNumber,
+} = useUserSearch()
 </script>
 
 <template>
   <div class="page">
     <div class="q-pa-md">
-      <q-btn color="primary" label="添加用户" />
+      <q-btn color="primary" label="添加用户" @click="showDialog" />
     </div>
 
     <div class="q-pa-md">
       <q-table
+        :rows="rows"
         :columns="columns"
         row-key="name"
         hide-pagination
@@ -51,9 +51,11 @@ const pagesNumber = computed(() => Math.ceil(rows.length, pagination.value.rowsP
         color="grey-8"
         :max="pagesNumber"
         size="sm"
-        :max-pages="5"
+        :max-pages="8"
+        :direction-links="true"
       />
     </div>
+    <CreateDialog v-if="isShowDialog" @hide="hideDialog" @create-success="fetchData" />
   </div>
 </template>
 
