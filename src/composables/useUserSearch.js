@@ -12,7 +12,7 @@ export const useUserSearch = () => {
 
   const fetchData = () => {
     search({ page: page.value }).then((data) => {
-      rows.value = rows.value.concat(data.content)
+      rows.value = data.content
       pagination.value.page = data.number + 1
       pagination.value.rowsPerPage = data.size
       pagination.value.rowsNumber = data.totalElements

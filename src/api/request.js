@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { Notify } from 'quasar'
 import store from '../store'
+import notify from '../utils/notify'
 
 const baseURL = import.meta.env.VITE_API_HOST
 const tokenPrefix = 'Bearer '
@@ -39,19 +39,11 @@ function errorResponseHandler(res) {
 
   if (Array.isArray(res.data)) {
     res.data.forEach((item) => {
-      Notify.create({
-        type: 'negative',
-        message: item.message,
-        position: 'top',
-      })
+      notify.error(item.message)
     })
   }
   else {
-    Notify.create({
-      type: 'negative',
-      message: res.data.message,
-      position: 'top',
-    })
+    notify.error(res.data.message)
   }
 }
 

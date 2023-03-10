@@ -24,9 +24,7 @@ const isShowDialog = ref(false)
 const { showDialog, hideDialog } = useToggleDialog(isShowDialog)
 const {
   rows,
-  pagination,
   fetchData,
-  pagesNumber,
 } = useUserSearch()
 </script>
 
@@ -37,23 +35,7 @@ const {
     </div>
 
     <div class="q-pa-md">
-      <q-table
-        :rows="rows"
-        :columns="columns"
-        row-key="name"
-        hide-pagination
-      />
-    </div>
-
-    <div class="q-pa-lg flex flex-center">
-      <q-pagination
-        v-model="pagination.page"
-        color="grey-8"
-        :max="pagesNumber"
-        size="sm"
-        :max-pages="8"
-        :direction-links="true"
-      />
+      <q-table :rows="rows" :columns="columns" row-key="name" />
     </div>
     <CreateDialog v-if="isShowDialog" @hide="hideDialog" @create-success="fetchData" />
   </div>
