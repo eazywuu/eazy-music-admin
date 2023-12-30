@@ -9,7 +9,7 @@ const req = axios.create({
   baseURL,
 })
 
-const { get, post, put } = req
+const { get, post, put, delete: del } = req
 
 // 全局 请求 拦截器
 req.interceptors.request.use(
@@ -47,4 +47,4 @@ function errorResponseHandler(res) {
   }
 }
 
-export { get, post, put }
+export { get, post, put, del }

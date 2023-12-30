@@ -1,13 +1,13 @@
 import { get, post, put } from './request'
 
-const search = () => get('./musics')
+const search = searchFilter => get('./musics', { params: searchFilter })
 
 const create = music => post('./musics', music)
 
-const update = (id, music) => put(`/music/${id}`, music)
+const update = (id, music) => put(`/musics/${id}`, music)
 
-const publish = id => post(`musics/publish/${id}`)
+const publish = id => post(`musics/${id}/publish`)
 
-const close = id => post(`musics/close/${id}`)
+const close = id => post(`musics/${id}/close`)
 
-export { create, search, update, publish, close }
+export { search, create, update, publish, close }

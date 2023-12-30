@@ -16,6 +16,9 @@ router.beforeEach(async (to, from, next) => {
     if (to.path === '/login') {
       next({ path: '/' })
     }
+    else if (to.path === '/home') {
+      next()
+    }
     else {
       const user = store.state.user.currentUser
       const adminRole = user.roles.find(role => role.name === 'ROLE_ADMIN')
@@ -24,8 +27,10 @@ router.beforeEach(async (to, from, next) => {
         notify.error('没有登录权限！')
         next(`/login?redirect=${to.path}`)
       }
+      else {
+        next()
+      }
     }
-    next()
   }
   else {
     if (whiteList.includes(to.path))
