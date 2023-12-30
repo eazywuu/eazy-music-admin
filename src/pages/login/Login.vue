@@ -29,7 +29,7 @@ const onReset = () => {
     <div class="q-pa-md row items-start q-gutter-md">
       <q-card class="login-form-content">
         <div class="title">
-          原力音乐后台
+          音乐管理后台
         </div>
         <q-form
           class="q-gutter-md form"

@@ -1,10 +1,9 @@
 <script setup>
-import { computed } from 'vue'
-import store from '../../store'
-
-const nickname = computed(() => store.state.user.nickname)
+import CosUploader from '../../composables/useCosUploader.js'
 </script>
 
 <template>
-  <div>{{ nickname }}</div>
+  <div>
+    <CosUploader label="上传" />
+  </div>
 </template>

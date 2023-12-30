@@ -21,6 +21,12 @@ export const menuRoutes = [
     meta: { title: '音乐管理', icon: 'music_note' },
     component: () => import('../pages/music/Index.vue'),
   },
+  {
+    path: 'artist',
+    name: 'Artist',
+    meta: { title: '歌手管理', icon: 'mic' },
+    component: () => import('../pages/artist/Index.vue'),
+  },
 ]
 
 const routes = [
@@ -33,6 +39,10 @@ const routes = [
   {
     path: '/login',
     component: () => import('../pages/login/Login.vue'),
+  },
+  {
+    path: '/home',
+    component: () => import('../pages/home/Home.vue'),
   },
   {
     path: '/403',

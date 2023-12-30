@@ -1,4 +1,10 @@
 <script setup>
+import { onMounted } from 'vue'
+import store from './store'
+
+onMounted(() => {
+  store.dispatch('setting/fetchSiteSetting')
+})
 </script>
 
 <template>
