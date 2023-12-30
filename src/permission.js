@@ -1,6 +1,6 @@
-import { Notify } from 'quasar'
 import router from './router'
 import store from './store'
+import notify from './utils/notify'
 
 const whiteList = [
   '/login',
@@ -21,11 +21,7 @@ router.beforeEach(async (to, from, next) => {
       const adminRole = user.roles.find(role => role.name === 'ROLE_ADMIN')
       if (!adminRole) {
         await store.dispatch('user/logout')
-        Notify.create({
-          type: 'negative',
-          message: '没有登录权限！',
-          position: 'top',
-        })
+        notify.error('没有登录权限！')
         next(`/login?redirect=${to.path}`)
       }
     }

@@ -15,6 +15,12 @@ export const menuRoutes = [
     meta: { title: '用户管理', icon: 'manage_accounts' },
     component: () => import('../pages/user/Index.vue'),
   },
+  {
+    path: 'music',
+    name: 'Music',
+    meta: { title: '音乐管理', icon: 'music_note' },
+    component: () => import('../pages/music/Index.vue'),
+  },
 ]
 
 const routes = [
