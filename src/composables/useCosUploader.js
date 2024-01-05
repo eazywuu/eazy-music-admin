@@ -53,11 +53,11 @@ export default createUploaderComponent({
         },
       })
     }
+
     const cos = initCosClient()
     const store = useStore()
     const bucket = store.getters['setting/bucket']
     const region = store.getters['setting/region']
-    const storage = store.getters['setting/storage']
     // can call any other composables here
     // as this function will run in the component's setup()
 
@@ -67,10 +67,6 @@ export default createUploaderComponent({
     const isBusy = ref(false)
 
     const taskId = ref('')
-
-    const about = (e) => {
-      console.log(e)
-    }
 
     const uploadFiles = () => {
       const file = helpers.queuedFiles.value[0]
@@ -121,7 +117,6 @@ export default createUploaderComponent({
 
     return {
       isUploading,
-      about,
       upload,
     }
   },

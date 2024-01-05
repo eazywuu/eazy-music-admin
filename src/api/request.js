@@ -11,7 +11,9 @@ const req = axios.create({
 
 const { get, post, put, delete: del } = req
 
-// 全局 请求 拦截器
+/**
+ * 全局 请求 拦截器
+ */
 req.interceptors.request.use(
   (request) => {
     // do something before request is sent
@@ -24,7 +26,9 @@ req.interceptors.request.use(
   },
 )
 
-// 全局 响应 拦截器
+/**
+ * 全局 响应 拦截器
+ */
 req.interceptors.response.use(
   response => response.data,
   (error) => {
